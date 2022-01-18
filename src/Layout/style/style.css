@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+#main-page .logo {
+  height: 5vh;
+}
+
+#main-page .side-bar {
+  height: 95vh;
+}
+
+#main-page .content {
+  height: 95vh;
+}
+/*# sourceMappingURL=style.css.map */

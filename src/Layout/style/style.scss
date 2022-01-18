@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#main-page {
+  .logo {
+    height: 5vh;
+  }
+
+  .side-bar {
+    height: 95vh;
+  }
+
+  .content {
+    height: 95vh;
+  }
+}
