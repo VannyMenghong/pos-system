@@ -1,51 +1,134 @@
-import React, { Component } from 'react';
+import Navbar from './Navbar';
 import { Link, Outlet } from 'react-router-dom';
-import './style/style.css';
+import { useNavigate } from 'react-router-dom';
+import  Drawer  from '@material-ui/core/Drawer';
+import  Typography  from '@material-ui/core/Typography';
+import  List from '@material-ui/core/List';
+import  ListItem from '@material-ui/core/ListItem';
+import  ListItemIcon from '@material-ui/core/ListItemIcon';
+import  ListItemText from '@material-ui/core/ListItemText';
+import { Icon, makeStyles } from '@material-ui/core';
+import HomeIcon from '@material-ui/icons/Home';
+import GroupIcon from '@material-ui/icons/Group';
+import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
+import AccessAlarmsIcon from '@mui/icons-material/AccessAlarms';
+import EventNoteTwoToneIcon from '@mui/icons-material/EventNoteTwoTone';
+import BuildTwoToneIcon from '@mui/icons-material/BuildTwoTone';
+import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
 
 
-export class Layout extends Component {
-    render() {
+const drawerWidth = 300;
+const useStyle = makeStyles({
+    page: {
+        width: '100%',
+    },
+    drawer: {
+        width: drawerWidth ,
+    },
+    drawerPaper: {
+        width: drawerWidth,
+    },
+    root: {
+        display: 'flex',
+    },
+    title: {
+        padding: ' 20px 0px',
+        backgroundColor: '',
+        fontSize: '26px',
+        fontWeight: '600'
+    },
+    item: {
+        padding: '10px 0px',    
+    }
+    
+})
+
+export  function Layout () {
+    const navigation = useNavigate();
+    const classes = useStyle();
+    const menuItems = [
+        {
+            text: 'Home', 
+            icon:<HomeIcon /> ,
+            path: "/",
+        },
+        {
+            text: 'Customers', 
+            icon:<GroupIcon /> ,
+            path: "/Customer",
+        },
+        {
+            text: 'Invoice', 
+            icon:<InsertDriveFileIcon /> ,
+            path: "/Invoice",    
+        },
+        {
+            text: 'YC Information', 
+            icon:<AccessAlarmsIcon /> ,
+            path: "/YC",
+        },
+        {
+            text: 'OnSite Measurement Schedul', 
+            icon:<EventNoteTwoToneIcon /> ,
+            path: "/Onsite",
+        },
+        {
+            text: 'Installation Schedul', 
+            icon:<BuildTwoToneIcon /> ,
+            path: "/Install",
+        },
+        {
+            text: 'Order', 
+            icon:<BorderColorTwoToneIcon /> ,
+            path: "/Order",
+        },
+        
+    ]
         return (
-            <div className='container-fluid' id='main-page'>
-                
-                    
-                
-                <div className='row side-bar'>
-                    <div className='col-12 col-sm-12 col-md-12 py-1 bg-info logo'>
-                        <h5>POS Construction System</h5>
+            <div>
+                 <div>
+                     <Navbar />
+                 </div>
+                 <div className={classes.root}>
+                {/* side bar  */}
+                <div>
+                <Drawer
+                className={ classes.drawer}
+                variant='permanent'
+                anchor='left'
+                classes={{ paper: classes.drawerPaper }}
+                >
+                    <div>
+                        <Typography variant='h5' className={classes.title}>
+                            POS Construction
+                        </Typography>
                     </div>
-                    <div className='col-12 col-sm-12 col-md-3 bg-danger side-bar'>
-                        <ul className='nav flex-column'>
-                            <li className='nav-item'>
-                                <Link to='/'>Home</Link>
-                            </li>
-                            <li className='nav-item'>
-                                <Link to='/Customer'>Customer Information</Link>
-                            </li>
-                            <li className='nav-item'>
-                                <Link to='/Invoice'>Invoice</Link>
-                            </li>
-                            <li className='nav-item'>
-                                <Link to='/YC'>YC Information</Link>
-                            </li>
-                            <li className='nav-item'>
-                                <Link to='/Onsite'>Onsite Measurement Schedul</Link>
-                            </li>
-                            <li className='nav-item'>
-                                <Link to='/Install'>Installatio</Link>
-                            </li>
-                            <li className='nav-item'>
-                                <Link to='/Order'>Order Details</Link>
-                            </li>
-                        </ul>
+                    <div>
+                        <List>
+                            {menuItems.map( item => 
+                                <ListItem
+                                key={item.text}
+                                button
+                                color='secondary'
+                                className={classes.item}
+                                onClick= { () => navigation(item.path) }
+                                >
+                                    <ListItemIcon>{item.icon}</ListItemIcon>
+                                     <ListItemText>{item.text}</ListItemText>
+                                </ListItem> 
+                            )}
+                        </List>
                     </div>
-                    <dic className="col-12 col-sm-12 col-md-9 bg-warning content">
-                        <Outlet />
-                    </dic>
+
+                </Drawer>
+                </div>
+
+                <div>
+                    <Outlet />
                 </div>
             </div>
+            </div>
         )
-    }
 }
 
 export default Layout;
