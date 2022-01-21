@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-
+import { NavigationTitle } from '../NavigationTitle';
 export class Onsite extends Component {
     render() {
         return (
             <div>
-                <h1> ONSITE SCHEDUL </h1>
+                <div>   
+                <NavigationTitle /> 
+            </div>
             </div>
         )
     }

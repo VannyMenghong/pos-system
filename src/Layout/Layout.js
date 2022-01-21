@@ -1,5 +1,5 @@
 import Navbar from './Navbar';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import  Drawer  from '@material-ui/core/Drawer';
 import  Typography  from '@material-ui/core/Typography';
@@ -15,6 +15,7 @@ import AccessAlarmsIcon from '@mui/icons-material/AccessAlarms';
 import EventNoteTwoToneIcon from '@mui/icons-material/EventNoteTwoTone';
 import BuildTwoToneIcon from '@mui/icons-material/BuildTwoTone';
 import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
+import { Button } from '@mui/material';
 
 
 const drawerWidth = 300;
@@ -27,106 +28,182 @@ const useStyle = makeStyles({
     },
     drawerPaper: {
         width: drawerWidth,
+        boxShadow: '0px 1px 10px',
+        border: 'none'
     },
     root: {
         display: 'flex',
+        
     },
     title: {
-        padding: ' 20px 0px',
+        padding: ' 11px 0px',
         backgroundColor: '',
-        fontSize: '26px',
-        fontWeight: '600'
+        fontSize: '25px',
+        fontWeight: '600',
+        textAlign: 'center',
+        color: 'white',
     },
     item: {
-        padding: '10px 0px',    
+       
+    },
+    li: {
+        padding: '1px',
+    },
+    
+    dashboard: {
+        marginTop: '0px',
+        marginBottom: '20px',   
+       
+    },
+    dashboardItem: {
+        padding: '15px 0px',
+        borderRadius: '5px',
+        margin: '15px 0px 15px 0px', 
+        backgroundColor: '#1CC5DC' ,
+        width: '100%',
+        boxShadow: '0px 2px 4px',
+        
+    },
+    dbtext: {   
+        color: '#F7F6F2',
+        cursor: 'pointer',
+        display: 'flex',
+        fontSize: '30px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent:'center', 
+    },
+    text: {
+        marginLeft: '10px',
+    },
+    active: {
+        width: '100%',
+        transition: '0.6s',
+        backgroundColor: '#32CADF',
+        boxShadow: '0px 0px 7px',
+        width: '90%',
+        marginLeft: '14px'
+    },
+    activeText: {
+        color: 'white',
     }
     
 })
 
 export  function Layout () {
     const navigation = useNavigate();
+    const location = useLocation();
     const classes = useStyle();
     const menuItems = [
         {
-            text: 'Home', 
-            icon:<HomeIcon /> ,
-            path: "/",
-        },
-        {
             text: 'Customers', 
             icon:<GroupIcon /> ,
-            path: "/Customer",
+            path: "/Customers",
+            
         },
         {
-            text: 'Invoice', 
+            text: 'Invoices', 
             icon:<InsertDriveFileIcon /> ,
-            path: "/Invoice",    
+            path: "/Invoices",  
+             
         },
         {
             text: 'YC Information', 
             icon:<AccessAlarmsIcon /> ,
-            path: "/YC",
+            path: "/YC_Information",
+           
         },
         {
-            text: 'OnSite Measurement Schedul', 
+            text: 'OM Schedul', 
             icon:<EventNoteTwoToneIcon /> ,
-            path: "/Onsite",
+            path: "/OM_Schedul",
+            
         },
         {
             text: 'Installation Schedul', 
             icon:<BuildTwoToneIcon /> ,
-            path: "/Install",
+            path: "/Installation_Schedul",
+            
         },
         {
-            text: 'Order', 
+            text: 'Orders', 
             icon:<BorderColorTwoToneIcon /> ,
-            path: "/Order",
+            path: "/Orders",
+            
         },
         
     ]
         return (
             <div>
-                 <div>
+                 <div className='classes.navbar'>
                      <Navbar />
                  </div>
                  <div className={classes.root}>
-                {/* side bar  */}
-                <div>
-                <Drawer
-                className={ classes.drawer}
-                variant='permanent'
-                anchor='left'
-                classes={{ paper: classes.drawerPaper }}
-                >
+                    {/* side bar  */}
                     <div>
-                        <Typography variant='h5' className={classes.title}>
-                            POS Construction
-                        </Typography>
-                    </div>
-                    <div>
-                        <List>
-                            {menuItems.map( item => 
-                                <ListItem
-                                key={item.text}
-                                button
-                                color='secondary'
-                                className={classes.item}
-                                onClick= { () => navigation(item.path) }
+                    <Drawer
+                        className={ classes.drawer}
+                        variant='permanent'
+                        anchor='left'
+                        classes={{ paper: classes.drawerPaper }}    
+                        >
+                        <div 
+                        className='classes.mainTitle'
+                        style={{ backgroundColor: '#1976D4',boxShadow:'0px 3px 5px'}}
+                        >
+                            <Typography 
+                                variant='h5' 
+                                className={classes.title}
                                 >
-                                    <ListItemIcon>{item.icon}</ListItemIcon>
-                                     <ListItemText>{item.text}</ListItemText>
-                                </ListItem> 
-                            )}
-                        </List>
+                                    OMEGA POS              
+                            </Typography>
+                        </div>
+                        <div>
+                            <List>  
+                                <ListItem 
+                                className={ classes.dashboard} 
+                                >          
+                                    <ListItemIcon
+                                    onClick={() => navigation('/')}
+                                    className={ classes.dashboardItem}                                   
+                                    >
+                                                <ListItemText className={classes.dbtext} >
+                                                    
+                                                    <Typography variant='h6' ><HomeIcon  fontSize='inherit' style={{ fontSize: '35px', marginBottom: '-8px'}} />
+                                                        Dashboard
+                                                    </Typography>                                                   
+                                                </ListItemText>   
+                                    </ListItemIcon >                                   
+                                </ListItem>
+                                {menuItems.map( item => 
+                                    <ListItem
+                                        key={item.text}
+                                        className={classes.item }
+                                        style={{ cursor: 'pointer'}}
+                                        onClick = { () => navigation(item.path) }
+                                        className={ location.pathname == item.path ? classes.active : null }
+                                    >
+                                        <ListItemIcon
+                                             className={classes.li}                                      
+                                        >
+                                                {item.icon}
+                                                <ListItemText 
+                                                        style={{marginLeft  : '10px'}}
+                                                        className={ location.pathname == item.path ? classes.activeText : null }
+                                                        >{item.text}
+                                                </ListItemText>
+                                        </ListItemIcon>
+                                        
+                                    </ListItem>     
+                                )}
+                            </List>
+                        </div>
+                    </Drawer>
                     </div>
-
-                </Drawer>
+                    <div style={{width:'100%', height:'100vh'}}  >                  
+                        <Outlet />          
+                    </div>
                 </div>
-
-                <div>
-                    <Outlet />
-                </div>
-            </div>
             </div>
         )
 }

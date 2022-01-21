@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { NavigationTitle } from '../NavigationTitle';
-export class Order extends Component {
+
+export class Customers extends Component {
     render() {
         return (
-            <div>
-                <div>   
+            <div>   
                 <NavigationTitle /> 
-            </div>  
             </div>
         )
     }
 }
 
-export default Order
+export default Customers;

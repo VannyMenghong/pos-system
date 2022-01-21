@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-
+import { NavigationTitle } from '../NavigationTitle';
 export class Invoice extends Component {
     render() {
         return (
             <div>
-                <h1> INVOICE </h1>
+               <div>   
+                <NavigationTitle /> 
+            </div>
             </div>
         )
     }

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-
+import { NavigationTitle } from '../NavigationTitle';
 export class YC extends Component {
     render() {
         return (
             <div>
-                <h1> YC INFORMATION </h1>
+                <NavigationTitle />
             </div>
         )
     }
